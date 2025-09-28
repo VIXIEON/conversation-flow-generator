@@ -173,8 +173,38 @@
             <p>Never run out of things to say again</p>
         </div>
         
-    <!-- Bidvertiser2102046 -->
-        
+        <div class="main-content">
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="situation">What's the situation?</label>
+                    <select id="situation">
+                        <option value="">Select a conversation type...</option>
+                        <option value="casual">Casual conversation with friends</option>
+                        <option value="dating">Dating/romantic conversation</option>
+                        <option value="work">Professional/work conversation</option>
+                        <option value="networking">Networking/meeting new people</option>
+                        <option value="awkward">Awkward silence recovery</option>
+                        <option value="family">Family conversation</option>
+                        <option value="small-talk">Small talk/light conversation</option>
+                        <option value="deep">Deep/meaningful conversation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="context">What was just said? (Optional)</label>
+                    <textarea id="context" placeholder="e.g., 'They just mentioned they're tired from work' or leave blank for general responses"></textarea>
+                </div>
+                
+                <button class="generate-btn" onclick="generateResponses()">
+                    Get Conversation Ideas
+                </button>
+            </div>
+            
+            <div class="results" id="results">
+                <h3>Here are your conversation responses:</h3>
+                <div id="responseList"></div>
+            </div>
+            
             <div class="tips">
                 <h4>💡 Pro Tips for Better Conversations</h4>
                 <ul>
@@ -254,6 +284,54 @@
             
             if (!situation) {
                 alert('Please select a conversation type first!');
+                return;
+            }
+            
+            const responses = conversationResponses[situation];
+            const responseList = document.getElementById('responseList');
+            const resultsDiv = document.getElementById('results');
+            
+            responseList.innerHTML = '';
+            
+            // Add context-specific response if context is provided
+            if (context.trim()) {
+                const contextResponse = generateContextualResponse(context, situation);
+                responseList.innerHTML += `
+                    <div class="response-item">
+                        <div class="response-category">Based on what they said</div>
+                        <div class="response-text">${contextResponse}</div>
+                    </div>
+                `;
+            }
+            
+            // Add general responses for the situation
+            responses.forEach(response => {
+                responseList.innerHTML += `
+                    <div class="response-item">
+                        <div class="response-category">${response.category}</div>
+                        <div class="response-text">${response.text}</div>
+                    </div>
+                `;
+            });
+            
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function generateContextualResponse(context, situation) {
+            const contextualResponses = [
+                `That sounds like ${context.toLowerCase()}. How do you usually handle that?`,
+                `Interesting that you mentioned ${context.toLowerCase()}. What's your experience been like with that?`,
+                `I can relate to ${context.toLowerCase()}. What do you think about...?`,
+                `That's really cool about ${context.toLowerCase()}. Tell me more about that.`,
+                `${context} - that's something I've been thinking about too. What's your take on it?`
+            ];
+            
+            return contextualResponses[Math.floor(Math.random() * contextualResponses.length)];
+        }
+    </script>
+</body>
+</html>                alert('Please select a conversation type first!');
                 return;
             }
             
