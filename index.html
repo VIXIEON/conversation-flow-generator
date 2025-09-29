@@ -205,7 +205,7 @@
                 <div id="responseList"></div>
             </div>
             
-           <!-- Bidvertiser2102046 -->
+          <!-- Bidvertiser2102046 -->
             
             <div style="text-align: center; margin: 40px 0;">
             <script type="text/javascript">
@@ -346,52 +346,4 @@
         }
     </script>
 </body>
-</html>                alert('Please select a conversation type first!');
-                return;
-            }
-            
-            const responses = conversationResponses[situation];
-            const responseList = document.getElementById('responseList');
-            const resultsDiv = document.getElementById('results');
-            
-            responseList.innerHTML = '';
-            
-            // Add context-specific response if context is provided
-            if (context.trim()) {
-                const contextResponse = generateContextualResponse(context, situation);
-                responseList.innerHTML += `
-                    <div class="response-item">
-                        <div class="response-category">Based on what they said</div>
-                        <div class="response-text">${contextResponse}</div>
-                    </div>
-                `;
-            }
-            
-            // Add general responses for the situation
-            responses.forEach(response => {
-                responseList.innerHTML += `
-                    <div class="response-item">
-                        <div class="response-category">${response.category}</div>
-                        <div class="response-text">${response.text}</div>
-                    </div>
-                `;
-            });
-            
-            resultsDiv.style.display = 'block';
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        function generateContextualResponse(context, situation) {
-            const contextualResponses = [
-                `That sounds like ${context.toLowerCase()}. How do you usually handle that?`,
-                `Interesting that you mentioned ${context.toLowerCase()}. What's your experience been like with that?`,
-                `I can relate to ${context.toLowerCase()}. What do you think about...?`,
-                `That's really cool about ${context.toLowerCase()}. Tell me more about that.`,
-                `${context} - that's something I've been thinking about too. What's your take on it?`
-            ];
-            
-            return contextualResponses[Math.floor(Math.random() * contextualResponses.length)];
-        }
-    </script>
-</body>
-  </html>
+</html>
